@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static "pizzaplace/signup.css" %}">
+{% endblock %}
+
+{% block title %}
+<title>Signup</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="signup-container">
+     <h1 class="signup-title">SIGN-UP</h1>
+    <form class="signup-form" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button id="submitBtn"type="submit">Submit</button>
+        <button id="cancelBtn" type="reset" onclick="window.location.href='{% url "home" %}'">Cancel</button>
+    </form>
+
+    </div>
+
+{% endblock %}

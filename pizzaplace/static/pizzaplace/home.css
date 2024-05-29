@@ -1,0 +1,48 @@
+
+h1{
+    text-align: center;
+    font-size: 5rem;
+    color: var(--primary);
+}
+
+.intro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+
+}
+
+.orderbtn {
+    color: rgba(14, 17, 14, 0.78);
+    background-color: var(--accent);
+    padding: 1.5em 3em;
+    box-shadow: 5px 5px 0px 2px rgba(14, 17, 14, 0.63);
+    /*border-radius: 5px;*/
+    border: var(--primary);
+    border: .5px solid rgba(14, 17, 14, 0.49);
+    transition: transform 0.3s;
+}
+
+
+.orderbtn:hover{
+   /*transform: scale(1.1);*/
+      transform: translateY(-6px);
+    transition-duration: .3s;
+}
+
+
+.orderbtn:active{
+    background-color: var(--primary);
+}
+
+@media (max-width: 767px){
+    h1{
+        font-size: 2rem;
+    }
+    .orderbtn{
+         padding: .5em 1.5em;
+    }
+}
+

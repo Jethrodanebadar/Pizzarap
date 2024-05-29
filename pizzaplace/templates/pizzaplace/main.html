@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Main-Page</title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static "pizzaplace/main.css" %}">
+{% endblock %}
+
+{% block content %}
+
+
+<h1 class = "menu">Main Menu</h1>
+
+    <div class="all-menu">
+    <h1 class="label">Pizza</h1>
+        <div class="menu-main">
+
+    {% for pizza in pizzas %}
+        {% include "pizzaplace/include/pizza_card.html" %}
+    {% endfor %}
+
+    </div>
+    <h1 class="label">Appetizer</h1>
+    <div class="menu-main">
+     {% for appetizer in appetizers %}
+        {% include "pizzaplace/include/appetizer.html" %}
+    {% endfor %}
+    </div>
+    <h1 class="label" >Salads</h1>
+    <div class="menu-main">
+     {% for salad in salads %}
+        {% include "pizzaplace/include/salad.html" %}
+    {% endfor %}
+    </div>
+     <h1 class="label">Drinks</h1>
+    <div class="menu-main">
+     {% for drink in drinks %}
+        {% include "pizzaplace/include/drink.html" %}
+    {% endfor %}
+    </div>
+
+    </div>
+
+    <dialog>
+
+    </dialog>
+
+    <footer></footer>
+{% endblock %}

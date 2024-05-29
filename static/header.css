@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:700|Source%20Sans%203:400');
+
+:root {
+    --primary: #74BB59;
+    --secondary: #ABE396;
+    --accent:#86E762;
+    --dark: #0E110E;
+    --light: #FAFBF9;
+
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins';
+  font-weight: 700;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Source Sans 3';
+    font-weight: 400;
+    background-color: var(--light);
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+
+
+}
+
+header{
+    font-family: 'Source Sans 3';
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    /*background-color: #86E762;*/
+}
+
+.links{
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    /*background-color: #86E762;*/
+}
+.links ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0; /
+    list-style: none;
+    height: 100%;
+}
+
+li{
+    list-style: none;
+    margin: 0 10px;
+    transition: transform 0.3s;
+}
+
+a{
+    text-decoration: none;
+    color: var(--dark);
+}
+
+
+.icon{
+    font-size: 2.5rem;
+    transition: transform .6s;
+}
+
+.icon:hover{
+    transform: scale(1.1);
+    transition-duration: .6s;
+}
+
+li:hover{
+    transform: scale(1.1);
+    transition-duration: .3s;
+}
+
+svg{
+width: 23px;
+    height: auto;
+vertical-align: middle;
+}
+
+svg path{
+    width: 20px;
+    height: auto;
+}
+
+#logoutbtn{
+    font-size: 1rem;
+    align-self: center ;
+    font-family: 'Source Sans 3';
+    background-color: transparent;
+    border: transparent;
+}
+
+.name {
+    position: relative;
+    display: inline-block;
+}
+
+.name .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    z-index: -1;
+}
+
+
+/*@media (max-width: 767px){*/
+/*    .links{*/
+/*    display: flex;*/
+/*        flex-direction: column;*/
+/*gap: 2rem;*/
+/*}*/
+
+/*}*/

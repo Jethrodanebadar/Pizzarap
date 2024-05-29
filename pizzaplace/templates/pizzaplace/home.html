@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Home</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'pizzaplace/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="intro">
+        <h1>Welcome to my pizza shop!</h1>
+    <button class="orderbtn" onclick="window.location.href = '{% url 'main-page' %}'">Order now</button>
+</div>
+{% endblock %}

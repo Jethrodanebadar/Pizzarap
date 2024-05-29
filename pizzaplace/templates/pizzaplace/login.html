@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'pizzaplace/login.css' %}">
+{% endblock %}
+
+{% block title %}
+<title>Login</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="login-container">
+        <h1 class="login-title">Login for our Pizza Deals!</h1>
+    <form class="login-form" method="post" >
+    {% csrf_token %}
+    {{form.as_p }}
+        <button id="submitBtn"type="submit">Submit</button>
+        <button id="cancelBtn" type="reset" onclick="window.location.href='{% url "home" %}'">Cancel</button>
+        <a class="forgot-pass" href="">forgot password?</a>
+        <p>Haven't created an account yet? <a class="signup-link" href="{% url 'signup' %}">Sign-up</a></p>
+    </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% load static %}
+
+<article>
+    <a href="#">
+        <div class="pizza_card">
+            <h2>{{ appetizer.name }}</h2>
+            <p>{{ appetizer.description }}</p>
+            <ul class="prices">
+                <li><a class="purchase-link" href=""><b>price:</b> ${{ appetizer.price}}</a></li>
+            </ul>
+        </div>
+
+    </a>
+
+</article>
