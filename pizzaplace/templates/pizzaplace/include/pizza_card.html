@@ -7,9 +7,9 @@
             <p>{{ pizza.pizza_description }}</p>
             <ul class="prices">
                 <p>Select Prices:</p>
-                <li><a class="purchase-link" href="">small: ${{ pizza.small_price }}</a></li>
-                <li><a class="purchase-link" href="">medium: ${{ pizza.medium_price }}</a></li>
-                <li><a class="purchase-link" href="">large: ${{ pizza.large_price }}</a></li>
+                <li><a class="purchase-link" data-name="{{ pizza.pizza_name }}" data-price="{{ pizza.small_price }}" href="">small: ${{ pizza.small_price }}</a></li>
+                <li><a class="purchase-link" data-name="{{ pizza.pizza_name }}" data-price="{{ pizza.medium_price }}" href="">medium: ${{ pizza.medium_price }}</a></li>
+                <li><a class="purchase-link" data-name="{{ pizza.pizza_name }}" data-price="{{ pizza.large_price }}" href="">large: ${{ pizza.large_price }}</a></li>
             </ul>
         </div>
 

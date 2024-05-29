@@ -42,9 +42,59 @@
 
     </div>
 
-    <dialog>
-
+    <dialog id="login-dialog">
+    <div class="wrapper" >
+        <form method="dialog">
+        <button id="cancelButton">Cancel</button>
+        <h2 class="item-name">Purchase Item</h2>
+        <p class="item-price">price</p>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+        <button id="addToCartButton">Add to Cart</button>
+        <button id="buyNowButton">Buy Now</button>
+            </form>
+    </div>
     </dialog>
-
     <footer></footer>
+{% endblock %}
+
+{% block script %}
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) =>{
+        const login = document.getElementById("login-dialog")
+        const name = document.querySelector(".item-name")
+        const price = document.querySelector(".item-price")
+        const quantity = document.querySelector("#quantity")
+        const wrapper = document.querySelector(".wrapper")
+
+        let itemprice = 0;
+
+
+        document.querySelectorAll(".purchase-link").forEach(link =>{
+            link.addEventListener("click", (event) =>{
+                event.preventDefault()
+            let itemname = event.target.dataset.name;
+            itemprice = parseFloat(event.target.dataset.price) ;
+            name.textContent = itemname;
+            quantity.value = 1;
+            Updateprice()
+            login.showModal();
+            })
+        })
+
+
+        const Updateprice= () =>{
+            let updatedPrice =  itemprice * quantity.value;
+            price.innerHTML = `<b>Price:</b> $${updatedPrice.toFixed(2)}`;
+        }
+
+          quantity.addEventListener('input', Updateprice);
+
+        login.addEventListener("click", (e) => !wrapper.contains(e.target) && login.close() )
+
+        document.querySelector("#cancelButton").addEventListener("click", () => {
+            login.close()
+        })
+    })
+    </script>
 {% endblock %}

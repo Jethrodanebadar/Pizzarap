@@ -6,7 +6,7 @@
             <h2>{{ salad.name }}</h2>
             <p>{{ salad.description }}</p>
             <ul class="prices">
-                <li><a class="purchase-link" href=""><b>price: $</b>{{ salad.price }}</a></li>
+                <li><a class="purchase-link" data-name="{{ salad.name }}" data-price="{{ salad.price }}"  href=""><b>price: $</b>{{ salad.price }}</a></li>
             </ul>
         </div>
 
