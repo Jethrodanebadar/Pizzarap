@@ -44,14 +44,25 @@
 
     <dialog id="login-dialog">
     <div class="wrapper" >
-        <form method="dialog">
-        <button id="cancelButton">Cancel</button>
+        <form id="form-dialog" method="dialog">
+        <button class="purchasebtn" id="cancelButton"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
         <h2 class="item-name">Purchase Item</h2>
         <p class="item-price">price</p>
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
-        <button id="addToCartButton">Add to Cart</button>
-        <button id="buyNowButton">Buy Now</button>
+            <div class="quantity-container">
+                <label for="quantity">Quantity:</label>
+                <div class="quantitybtns">
+                    <button id="subtractbtn"  class="aritmethicbtns"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-440v-80h560v80H200Z"/></svg></button>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                    <button id="addbtn" class="aritmethicbtns"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></button>
+                </div>
+
+            </div>
+
+            <div class="buttons-form">
+                <button class="purchasebtn" id="addToCartButton">Add to Cart</button>
+        <button class="purchasebtn" id="buyNowButton">Buy Now</button>
+            </div>
+
             </form>
     </div>
     </dialog>
@@ -66,15 +77,17 @@
         const price = document.querySelector(".item-price")
         const quantity = document.querySelector("#quantity")
         const wrapper = document.querySelector(".wrapper")
-
+        const add = document.querySelector("#addbtn");
+        const subtract = document.querySelector("#subtractbtn")
         let itemprice = 0;
 
 
+
         document.querySelectorAll(".purchase-link").forEach(link =>{
-            link.addEventListener("click", (event) =>{
-                event.preventDefault()
+             link.addEventListener("click", (event) =>{
+                 event.preventDefault()
             let itemname = event.target.dataset.name;
-            itemprice = parseFloat(event.target.dataset.price) ;
+            itemprice = parseFloat(event.target.dataset.price);
             name.textContent = itemname;
             quantity.value = 1;
             Updateprice()
@@ -83,12 +96,34 @@
         })
 
 
+        add.addEventListener("click", ()=>{
+            console.log("Add")
+            quantity.value = parseInt(quantity.value) + 1;
+            quantity.textContent = quantity.value;
+            console.log(quantity.value);
+            Updateprice();
+            }
+        )
+        subtract.addEventListener("click", ()=>{
+            console.log("Subtract")
+            if(quantity.value > 1){
+                quantity.value = parseInt(quantity.value) - 1;
+                quantity.textContent = quantity.value;
+                console.log(quantity.value);
+                Updateprice();
+            }
+        })
+
+
         const Updateprice= () =>{
             let updatedPrice =  itemprice * quantity.value;
             price.innerHTML = `<b>Price:</b> $${updatedPrice.toFixed(2)}`;
         }
 
-          quantity.addEventListener('input', Updateprice);
+        quantity.addEventListener('input', Updateprice);
+
+
+
 
         login.addEventListener("click", (e) => !wrapper.contains(e.target) && login.close() )
 

@@ -15,8 +15,11 @@
     <form class="signup-form" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button id="submitBtn"type="submit">Submit</button>
-        <button id="cancelBtn" type="reset" onclick="window.location.href='{% url "home" %}'">Cancel</button>
+        <div class="signupbtns">
+            <button id="submitBtn"type="submit">Submit</button>
+        <button id="cancelBtn" type="reset" onclick="window.location.href='{% url "login" %}'">Cancel</button>
+        </div>
+
     </form>
 
     </div>

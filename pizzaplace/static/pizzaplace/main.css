@@ -25,7 +25,7 @@
     text-shadow: 1px 2px 2px rgba(14, 17, 14, 0.78);
     text-align: center;
     font-size: 5rem;
-    margin-top: 5rem;
+    margin-top: 15rem;
     margin-bottom: 3rem;
     color: var(--primary);
 }
@@ -47,6 +47,7 @@
 
 .prices p{
     font-weight: bolder;
+    /*margin: 0rem;*/
 }
 li{
     transition: transform 0.3s;
@@ -70,35 +71,170 @@ a li:hover{
 }
 
 
+#login-dialog{
+    min-width: 20%;
+    padding: 0px;
+}
+
+#form-dialog{
+
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+#form-dialog input{
+    min-height: 1.5rem;
+    border-radius: 5px;
+       border: 1px solid rgba(14, 17, 14, 0.32);
+}
+.buttons-form{
+    margin: 0px ;
+    padding: 0px;
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+}
+.quantity-container{
+    display: flex;
+    flex-direction: column;
+    gap:.3rem;
+}
+
+.quantity-container label{
+    font-size: .8rem;
+    color: rgba(14, 17, 14, 0.56);
+}
+.purchasebtn{
+     padding: 0.5em 1.5em;
+    box-shadow: 0px 1px 3px rgba(14, 17, 14, 0.2);
+    color: var(--light);
+    border-radius: 5px;
+    max-width: 40%;
+    padding: 0.3em .5em;
+    border: 1px solid rgba(14, 17, 14, 0.32);
+    transition: transform 0.3s;
+}
+
+.purchasebtn:hover, .aritmethicbtns:hover{
+    transform: scale(1.1);
+    transition-duration: 0.3s;
+}
+
+.purchasebtn:active{
+    background-color: rgba(255, 0, 0, 0.93);
+    color: var(--light);
+    fill: var(--light);
+
+}
+
+#addToCartButton{
+    background-color: rgba(255, 0, 0, 0.93);
+}
+
+#buyNowButton{
+    background-color: var(--accent);
+    color: var(--dark);
+}
+
+dialog::backdrop{
+    background-color: rgba(14, 17, 14, 0.66);
+     backdrop-filter: blur(1px);
+}
 
 
-@media (min-width: 768px) {
+
+#cancelButton{
+    border-radius: 5px;
+    max-width: 30%;
+    align-self: end;
+    padding: 0px;
+    /*background-color: navajowhite;*/
+}
+
+.quantitybtns{
+    display: flex;
+    gap: .3rem;
+}
+
+.aritmethicbtns{
+    border-radius: 10px;
+    background-color: transparent;
+     border: 1px solid rgba(14, 17, 14, 0.32);
+    transition: transform 0.3s;
+    padding: 3px 5px;
+}
+.aritmethicbtns svg{
+    width:20px;
+    height: auto;
+}
+
+
+.item-name{
+    margin: .8rem 0px;
+}
+
+.item-price{
+    margin: .5rem 0px;
+}
+
+@media (min-width: 881px) {
     .menu-main {
         grid-template-columns: repeat(2, minmax(200px, 1fr));
     }
 
 }
 
-@media (min-width: 767px) and (max-width: 880px) {
+@media (min-width: 767px) and (max-width: 960px) {
         .menu-main {
-        grid-template-columns: repeat(2, minmax(200px, 1fr));
+        grid-template-columns: repeat(1, minmax(200px, 1fr));
     }
 
     .pizza_card {
         height: 220px;
-        padding: 2rem;/* Set the desired fixed height */
+        padding: 2rem;
     }
 }
 @media (max-width: 766px) {
-    .menu{
-        font-size: 3rem;
-    }
+    .all-menu{
+    gap:2rem;
+}
+.label{
+    font-size: 2.5rem;
+}
     .menu-main {
         grid-template-columns: repeat(1, minmax(200px, 1fr));
     }
+     .prices{
+        display: flex;
+        flex-direction: column;
+    }
+     .menu{
+         font-size: 3rem;
+         margin-top: 10rem ;
+     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 479px) {
+.all-menu{
+    gap:1.5rem;
+}
+.label{
+    font-size: 1.5rem;
+}
+
+    .menu{
+         margin-top: 7rem;
+     }
+
+    .carddescription, .purchase-link{
+        font-size: .8rem;
+    }
+
+    .cardname{
+        font-size: 1.5rem;
+    }
     .prices{
         display: flex;
         flex-direction: column;

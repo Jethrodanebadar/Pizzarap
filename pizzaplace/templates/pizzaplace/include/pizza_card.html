@@ -3,10 +3,10 @@
 <article>
 
         <div class="pizza_card">
-            <h2>{{ pizza.pizza_name }}</h2>
-            <p>{{ pizza.pizza_description }}</p>
+            <h2 class="cardname">{{ pizza.pizza_name }}</h2>
+            <p class="carddescription">{{ pizza.pizza_description }}</p>
             <ul class="prices">
-                <p>Select Prices:</p>
+                <p class="carddescription">Select Prices:</p>
                 <li><a class="purchase-link" data-name="{{ pizza.pizza_name }}" data-price="{{ pizza.small_price }}" href="">small: ${{ pizza.small_price }}</a></li>
                 <li><a class="purchase-link" data-name="{{ pizza.pizza_name }}" data-price="{{ pizza.medium_price }}" href="">medium: ${{ pizza.medium_price }}</a></li>
                 <li><a class="purchase-link" data-name="{{ pizza.pizza_name }}" data-price="{{ pizza.large_price }}" href="">large: ${{ pizza.large_price }}</a></li>
