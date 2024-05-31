@@ -116,7 +116,7 @@ input{
     }
 
     .signup-container{
-        margin-top: 10vh;
+        margin-top: 15vh;
 }
 
 
@@ -141,6 +141,6 @@ input{
 @media (max-height: 600px) {
     .signup-container{
         margin-top: 50vh;
-        margin-bottom: 10vh;
+        margin-bottom: 20vh;
     }
 }

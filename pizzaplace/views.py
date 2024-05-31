@@ -1,5 +1,9 @@
-from django.shortcuts import render
-from .models import pizza_detail, Appetizer, Salad, Drink
+import json
+
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.http import require_POST
+from .models import pizza_detail, Appetizer, Salad, Drink, Cart, CartItem
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
@@ -24,7 +28,8 @@ def main(request):
         "pizzas": pizza_details,
         "appetizers": appetizer,
         "salads": salad,
-        "drinks": drink
+        "drinks": drink,
+        # "cart_items": request.user.cart.items.all().count()
     })
 
 class LoginInterfaceView(LoginView):
@@ -41,3 +46,12 @@ class SignupView(CreateView):
 @login_required()
 def cartDisplay(request):
     return render(request, "pizzaplace/cart.html")
+
+
+# def add_to_cart(request):
+#     pass
+#     # submit form
+#     # find Cart
+#         # give user cart if they don't have one
+#     # add items to cart
+#     # redirect back to main

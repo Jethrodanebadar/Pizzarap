@@ -146,6 +146,7 @@ svg path{
     width: 30%;
     display: none;
     flex-direction: column-reverse ;
+      box-shadow: 5px 4px 16px 5px rgb(14 17 14 / 25%);
     align-items: flex-end;
     justify-content: flex-end;
     backdrop-filter: blur(10px);
@@ -187,8 +188,9 @@ svg path{
 
 @media (max-width: 479px){
     header{
-        width:73%;
+        width:85%;
         justify-content: space-between;
+        padding: 1rem;
     }
 
 

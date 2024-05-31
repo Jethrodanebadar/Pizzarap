@@ -77,11 +77,12 @@ a li:hover{
 }
 
 #form-dialog{
-
+    max-width: 100%;
     padding: 32px;
     display: flex;
     flex-direction: column;
     gap: .5rem;
+    align-items: center;
 }
 
 #form-dialog input{
@@ -93,13 +94,16 @@ a li:hover{
     margin: 0px ;
     padding: 0px;
     display: flex;
-    max-width: 100%;
     justify-content: space-between;
 }
 .quantity-container{
     display: flex;
     flex-direction: column;
     gap:.3rem;
+}
+
+.quantity-container input{
+    padding: .2rem .5rem;
 }
 
 .quantity-container label{
@@ -153,6 +157,10 @@ dialog::backdrop{
     /*background-color: navajowhite;*/
 }
 
+#cancelButton svg:hover{
+    fill:var(--light);
+}
+
 .quantitybtns{
     display: flex;
     gap: .3rem;
@@ -191,10 +199,6 @@ dialog::backdrop{
         grid-template-columns: repeat(1, minmax(200px, 1fr));
     }
 
-    .pizza_card {
-        height: 220px;
-        padding: 2rem;
-    }
 }
 @media (max-width: 766px) {
     .all-menu{
@@ -240,3 +244,4 @@ dialog::backdrop{
         flex-direction: column;
     }
 }
+

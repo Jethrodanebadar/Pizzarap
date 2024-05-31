@@ -44,23 +44,24 @@
 
     <dialog id="login-dialog">
     <div class="wrapper" >
-        <form id="form-dialog" method="dialog">
-        <button class="purchasebtn" id="cancelButton"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
+        <form id="form-dialog" >
+            {% csrf_token %}
+        <button class="purchasebtn" id="cancelButton" type="button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
         <h2 class="item-name">Purchase Item</h2>
         <p class="item-price">price</p>
             <div class="quantity-container">
                 <label for="quantity">Quantity:</label>
                 <div class="quantitybtns">
-                    <button id="subtractbtn"  class="aritmethicbtns"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-440v-80h560v80H200Z"/></svg></button>
-                    <input type="number" id="quantity" name="quantity" min="1" value="1" required>
-                    <button id="addbtn" class="aritmethicbtns"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></button>
+                    <button id="subtractbtn" type="button" class="aritmethicbtns"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M200-440v-80h560v80H200Z"/></svg></button>
+                    <input type="number" type="button" id="quantity" name="quantity" min="1" value="1" required>
+                    <button id="addbtn" type="button" class="aritmethicbtns"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></button>
                 </div>
 
             </div>
 
             <div class="buttons-form">
-                <button class="purchasebtn" id="addToCartButton">Add to Cart</button>
-        <button class="purchasebtn" id="buyNowButton">Buy Now</button>
+                <button class="purchasebtn" type="button" id="addToCartButton">Add to Cart</button>
+        <button class="purchasebtn" type="button" id="buyNowButton">Buy Now</button>
             </div>
 
             </form>
@@ -70,31 +71,35 @@
 {% endblock %}
 
 {% block script %}
-    <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', (event) =>{
-        const login = document.getElementById("login-dialog")
+        const login = document.querySelector("#login-dialog")
         const name = document.querySelector(".item-name")
         const price = document.querySelector(".item-price")
         const quantity = document.querySelector("#quantity")
         const wrapper = document.querySelector(".wrapper")
         const add = document.querySelector("#addbtn");
         const subtract = document.querySelector("#subtractbtn")
+        const addToCart = document.querySelector("#addToCartButton")
         let itemprice = 0;
-
+        let itemType = '';
+        let itemId = 0;
 
 
         document.querySelectorAll(".purchase-link").forEach(link =>{
-             link.addEventListener("click", (event) =>{
+             link.addEventListener("click", (event) => {
                  event.preventDefault()
-            let itemname = event.target.dataset.name;
-            itemprice = parseFloat(event.target.dataset.price);
-            name.textContent = itemname;
-            quantity.value = 1;
-            Updateprice()
-            login.showModal();
-            })
+                 let itemname = event.target.dataset.name;
+                 itemType = event.target.dataset.type;
+                 itemId = event.target.dataset.id;
+                 itemprice = parseFloat(event.target.dataset.price);
+                 name.textContent = itemname;
+                 quantity.value = 1;
+                 Updateprice()
+                 login.showModal();
+             })
         })
-
 
         add.addEventListener("click", ()=>{
             console.log("Add")
@@ -114,7 +119,6 @@
             }
         })
 
-
         const Updateprice= () =>{
             let updatedPrice =  itemprice * quantity.value;
             price.innerHTML = `<b>Price:</b> $${updatedPrice.toFixed(2)}`;
@@ -122,13 +126,42 @@
 
         quantity.addEventListener('input', Updateprice);
 
+        $(addToCart).on('click', function(e){
+            e.preventDefault();
 
+            $.ajax({
+                url:"{% url 'cart' %}",
+                type: 'Post',
+                data: (
+                    {"itemType": itemType},
+                        {"itemId": itemId},
+                        {"quantity": quantity.value}
+                ),
+                success: function(response){
+                    $('error').remove();
+                    console.log(response)
+                    if(response.error){
+                        $.each(response.errors, function(name, error){
+                        error = '<small class="text-muted error">' + error + '</small>'
+                        $form.find('[name=' + name + ']').after(error);
+                })
+                    }
+                    else {
+                        alert(response.message)
+                        window.location = ""
+                    }
 
+                    },
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+        })
 
         login.addEventListener("click", (e) => !wrapper.contains(e.target) && login.close() )
 
         document.querySelector("#cancelButton").addEventListener("click", () => {
-            login.close()
+           login.close()
         })
     })
     </script>
