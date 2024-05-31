@@ -55,3 +55,44 @@ def cartDisplay(request):
 #         # give user cart if they don't have one
 #     # add items to cart
 #     # redirect back to main
+
+
+#
+# @login_required
+# def cartDisplay(request):
+#     try:
+#         cart = Cart.objects.get(user=request.user)
+#         cart_items = cart.items.all()
+#         total_price = sum(item.get_price() for item in cart_items)
+#     except Cart.DoesNotExist:
+#         cart_items = None
+#         total_price = 0
+#
+#     return render(request, 'pizzaplace/cart.html', {'cart_items': cart_items, 'total_price': total_price})
+#
+#
+# @require_POST
+# def add_to_cart(request):
+#     item_type = request.POST.get('itemType')
+#     item_id = request.POST.get('itemId')
+#     quantity = request.POST.get('quantity')
+#
+#     # Find or create a cart for the current user
+#     cart, created = Cart.objects.get_or_create(user=request.user)
+#
+#     # Add the item to the cart
+#     cart_item, created = CartItem.objects.get_or_create(
+#         cart=cart,
+#         item_type=item_type,
+#         item_id=item_id,
+#     )
+#
+#     # Update the quantity if the item is already in the cart
+#     if not created:
+#         cart_item.quantity += int(quantity)
+#         cart_item.save()
+#
+#     return JsonResponse({'message': 'Item added to cart successfully.'})
+#
+#
+#
