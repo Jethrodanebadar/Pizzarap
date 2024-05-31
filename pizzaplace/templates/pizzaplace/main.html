@@ -131,12 +131,18 @@
 
             $.ajax({
                 url:"{% url 'cart' %}",
-                type: 'Post',
-                data: (
-                    {"itemType": itemType},
-                        {"itemId": itemId},
-                        {"quantity": quantity.value}
-                ),
+                type: 'POST',
+                data: {
+                    "itemType": itemType,
+                    "itemName": itemname,
+                    "itemPrice": itemprice,
+                    "itemId": itemId,
+                    "quantity": quantity.value,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+
+
                 success: function(response){
                     $('error').remove();
                     console.log(response)
