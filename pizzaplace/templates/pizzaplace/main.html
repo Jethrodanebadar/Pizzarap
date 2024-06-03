@@ -58,9 +58,11 @@
                 </div>
 
             </div>
-
+            <input type="hidden" id="form-item-id">
+            <input type="hidden" id="form-item-type">
+            <input type="hidden" id="form-item-price">
             <div class="buttons-form">
-                <button class="purchasebtn" type="button" id="addToCartButton">Add to Cart</button>
+                <button class="purchasebtn" type="submit" id="addToCartButton">Add to Cart</button>
         <button class="purchasebtn" type="button" id="buyNowButton">Buy Now</button>
             </div>
 
@@ -71,7 +73,7 @@
 {% endblock %}
 
 {% block script %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', (event) =>{
         const login = document.querySelector("#login-dialog")
@@ -82,181 +84,101 @@
         const add = document.querySelector("#addbtn");
         const subtract = document.querySelector("#subtractbtn")
         const addToCart = document.querySelector("#addToCartButton")
-        let itemprice = 0;
-        let itemType = '';
+        let itemPrice = 0;
+        let itemName = '';
         let itemId = 0;
+        let itemType = '';
 
 
         document.querySelectorAll(".purchase-link").forEach(link =>{
              link.addEventListener("click", (event) => {
                  event.preventDefault()
-                 let itemname = event.target.dataset.name;
-                 itemType = event.target.dataset.type;
+                 itemName = event.target.dataset.name;
                  itemId = event.target.dataset.id;
-                 itemprice = parseFloat(event.target.dataset.price);
-                 name.textContent = itemname;
+                 itemType = event.target.dataset.type;
+                 itemPrice = parseFloat(event.target.dataset.price);
+                 name.textContent = itemName;
                  quantity.value = 1;
                  Updateprice()
+                 $('#form-item-id').val(itemId)
+                 $('#form-item-type').val(itemType)
+                 $('#form-item-price').val(itemPrice)
                  login.showModal();
+
              })
         })
 
         add.addEventListener("click", ()=>{
-            console.log("Add")
+            {#console.log("Add")#}
             quantity.value = parseInt(quantity.value) + 1;
             quantity.textContent = quantity.value;
-            console.log(quantity.value);
+            {#console.log(quantity.value);#}
             Updateprice();
             }
         )
         subtract.addEventListener("click", ()=>{
-            console.log("Subtract")
+            {#console.log("Subtract")#}
             if(quantity.value > 1){
                 quantity.value = parseInt(quantity.value) - 1;
                 quantity.textContent = quantity.value;
-                console.log(quantity.value);
+                {#console.log(quantity.value);#}
                 Updateprice();
             }
         })
 
         const Updateprice= () =>{
-            let updatedPrice =  itemprice * quantity.value;
+            let updatedPrice =  itemPrice * quantity.value;
             price.innerHTML = `<b>Price:</b> $${updatedPrice.toFixed(2)}`;
         }
 
         quantity.addEventListener('input', Updateprice);
 
         $(addToCart).on('click', function(e){
-            e.preventDefault();
-
-            $.ajax({
-                url:"{% url 'cart' %}",
-                type: 'POST',
-                data: {
-                    "itemType": itemType,
-                    "itemName": itemname,
-                    "itemPrice": itemprice,
-                    "itemId": itemId,
-                    "quantity": quantity.value,
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                    action: 'post'
-                },
+        e.preventDefault();
+        itemId = $('#form-item-id').val()
+            itemType = $('#form-item-type').val()
+            let Quantity = quantity.value;
+            itemPrice = $('#form-item-price').val() * Quantity
 
 
-                success: function(response){
-                    $('error').remove();
-                    console.log(response)
-                    if(response.error){
-                        $.each(response.errors, function(name, error){
-                        error = '<small class="text-muted error">' + error + '</small>'
+            console.log(itemType, itemPrice, Quantity, itemId, 'p')
+        $.ajax({
+            headers: {"X-CSRFToken": '{{ csrf_token }}'},
+            url: "{% url 'cart' %}",
+            type: 'POST',
+            data: {
+                item_type: itemType,
+                item_id: itemId,
+                quantity: Quantity
+            },
+
+            success: function (response) {
+                $('.error').remove();
+                console.log(response)
+                if (response.error) {
+                    $.each(response.errors, function (name, error) {
+                        error = 'small class ="text-muted error">' + error + '</small>'
                         $form.find('[name=' + name + ']').after(error);
-                })
-                    }
-                    else {
-                        alert(response.message)
-                        window.location = ""
-                    }
+                    })
+                }
+                else{
+                window.location = ""
+            }
+            },
 
-                    },
-                cache: false,
-                contentType: false,
-                processData: false
-            })
         })
+  login.close()
 
+        })
         login.addEventListener("click", (e) => !wrapper.contains(e.target) && login.close() )
 
         document.querySelector("#cancelButton").addEventListener("click", () => {
            login.close()
         })
     })
+
     </script>
 {% endblock %}
 
 
 
-
-{##}
-{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
-{#    <script type="text/javascript">#}
-{#    document.addEventListener('DOMContentLoaded', (event) =>{#}
-{#        const login = document.querySelector("#login-dialog")#}
-{#        const name = document.querySelector(".item-name")#}
-{#        const price = document.querySelector(".item-price")#}
-{#        const quantity = document.querySelector("#quantity")#}
-{#        const wrapper = document.querySelector(".wrapper")#}
-{#        const add = document.querySelector("#addbtn");#}
-{#        const subtract = document.querySelector("#subtractbtn")#}
-{#        const addToCart = document.querySelector("#addToCartButton")#}
-{#        let itemprice = 0;#}
-{#        let itemType = '';#}
-{#        let itemId = 0;#}
-{##}
-{##}
-{#        document.querySelectorAll(".purchase-link").forEach(link =>{#}
-{#             link.addEventListener("click", (event) => {#}
-{#                 event.preventDefault()#}
-{#                 let itemname = event.target.dataset.name;#}
-{#                 itemType = event.target.dataset.type;#}
-{#                 itemId = event.target.dataset.id;#}
-{#                 itemprice = parseFloat(event.target.dataset.price);#}
-{#                 name.textContent = itemname;#}
-{#                 quantity.value = 1;#}
-{#                 Updateprice()#}
-{#                 login.showModal();#}
-{#             })#}
-{#        })#}
-{##}
-{#        add.addEventListener("click", ()=>{#}
-{#            console.log("Add")#}
-{#            quantity.value = parseInt(quantity.value) + 1;#}
-{#            quantity.textContent = quantity.value;#}
-{#            console.log(quantity.value);#}
-{#            Updateprice();#}
-{#            }#}
-{#        )#}
-{#        subtract.addEventListener("click", ()=>{#}
-{#            console.log("Subtract")#}
-{#            if(quantity.value > 1){#}
-{#                quantity.value = parseInt(quantity.value) - 1;#}
-{#                quantity.textContent = quantity.value;#}
-{#                console.log(quantity.value);#}
-{#                Updateprice();#}
-{#            }#}
-{#        })#}
-{##}
-{#        const Updateprice= () =>{#}
-{#            let updatedPrice =  itemprice * quantity.value;#}
-{#            price.innerHTML = `<b>Price:</b> $${updatedPrice.toFixed(2)}`;#}
-{#        }#}
-{##}
-{#        quantity.addEventListener('input', Updateprice);#}
-{##}
-{#        $(addToCart).on('click', function(e){#}
-{#            e.preventDefault();#}
-{##}
-{#            $.ajax({#}
-{#    url: "{% url 'add_to_cart' %}",#}
-{#    type: 'POST',#}
-{#    data: {#}
-{#        'itemType': itemType,#}
-{#        'itemId': itemId,#}
-{#        'quantity': quantity#}
-{#    },#}
-{#    success: function(response) {#}
-{#        alert(response.message);#}
-{#        // Optionally, you can update the cart count or display a success message.#}
-{#    },#}
-{#    error: function(xhr, errmsg, err) {#}
-{#        // Handle errors#}
-{#        console.log(xhr.status + ": " + xhr.responseText);#}
-{#    }#}
-{#});#}
-{##}
-{#        login.addEventListener("click", (e) => !wrapper.contains(e.target) && login.close() )#}
-{##}
-{#        document.querySelector("#cancelButton").addEventListener("click", () => {#}
-{#           login.close()#}
-{#        })#}
-{#    })#}
-{#    </script>#}

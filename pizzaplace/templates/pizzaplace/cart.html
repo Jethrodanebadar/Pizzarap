@@ -1,22 +1,31 @@
-
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
-<title>Cart</title>
+    <title>Your Cart</title>
+{% endblock %}
+{% block script %}
+    <link rel="stylesheet" href="{% static 'pizzaplace/cart.css' %}">
 {% endblock %}
 {% block content %}
 
-<h1>Your Cart</h1>
+    {% if cart_items %}
+        <ul class="cart-container">
+         <h1>{{ username }}'s Cart</h1>
+            {% for item in cart_items %}
+               <div class="item-container">
+                    <div class="item-info">
+                        <h2>{{ item.get_item }} {{ item.quantity }}x</h2>
+                        <p>{{ item.item_type }}</p>
+                    </div>
+                        <h3>$ {{item.get_price }}</h3>
+                </div>
 
-{% if cart_items %}
-    <ul>
-    {% for item in cart_items %}
-        <li>{{ item.quantity }} x {{ item.get_item.name }} - ${{ item.get_price }}</li>
-    {% endfor %}
-    </ul>
-    <p>Total: ${{ total_price }}</p>
-    <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
-{% else %}
-    <p>Your cart is empty.</p>
-{% endif %}
+            {% endfor %}
 
+
+        </ul>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
 {% endblock %}
+
