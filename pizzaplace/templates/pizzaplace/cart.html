@@ -8,24 +8,47 @@
 {% endblock %}
 {% block content %}
 
-    {% if cart_items %}
-        <ul class="cart-container">
-         <h1>{{ username }}'s Cart</h1>
+    {% if not isEmpty %}
+<div class="cart-container">
+<div class="cartname-container">
+    <h1 class="cart-name">{{ username }}'s Cart</h1>
+</div>
+
+    <hr>
             {% for item in cart_items %}
                <div class="item-container">
                     <div class="item-info">
-                        <h2>{{ item.get_item }} {{ item.quantity }}x</h2>
+                        <h3 class="item-name">{{ item.get_item }} {{ item.quantity }}x</h3>
                         <p>{{ item.item_type }}</p>
+
                     </div>
-                        <h3>$ {{item.get_price }}</h3>
+
+                   <div class="price-btn">
+
+                        <p class="price">$ {{item.get_price }}</p>
+                        <form class="delete-button" action="{% url 'delete-item' item.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"/></svg></button>
+                    </form>
+
+                   </div>
+
                 </div>
-
+                <hr>
             {% endfor %}
+            <div class="total-container">
 
+                <h2 >Total</h2>
+                <h3 class="price">$ {{total }}</h3>
+            </div>
 
-        </ul>
+</div>
+        <div class="checkout-container" ><button class="checkout-btn" onclick="window.location.href='{% url 'empty_cart' %}'">Proceed to Checkout</button></div>
+
     {% else %}
-        <p>Your cart is empty.</p>
+        <h1 class="empty-cart">Empty Cart</h1>
+        <button class="emptycartbtn" onclick="window.location.href='{% url 'main-page' %}'">Continue Shopping</button>
     {% endif %}
+
 {% endblock %}
 

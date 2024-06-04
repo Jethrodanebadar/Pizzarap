@@ -4,8 +4,8 @@
     --primary: #74BB59;
     --secondary: #ABE396;
     --accent:#86E762;
-    --dark: #0E110E;
-    --light: #FAFBF9;
+    --dark: rgba(14, 17, 14, 0.31);
+    --light: rgba(250, 251, 249, 0.94);
 
 }
 

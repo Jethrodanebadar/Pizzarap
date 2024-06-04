@@ -99,4 +99,3 @@ class CartItem(models.Model):
                 raise ValueError("Invalid pizza size")
         else:
             return item.price * self.quantity
-

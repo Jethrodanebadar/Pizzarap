@@ -178,6 +178,11 @@ dialog::backdrop{
     height: auto;
 }
 
+.carddescription{
+    white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+}
 
 .item-name{
     margin: .8rem 0px;

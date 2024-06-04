@@ -62,8 +62,8 @@
             <input type="hidden" id="form-item-type">
             <input type="hidden" id="form-item-price">
             <div class="buttons-form">
-                <button class="purchasebtn" type="submit" id="addToCartButton">Add to Cart</button>
-        <button class="purchasebtn" type="button" id="buyNowButton">Buy Now</button>
+                <button class="purchasebtn" type="button" id="addToCartButton">Add to Cart</button>
+        <button class="purchasebtn" type="button" onclick="window.location.href='{% url 'empty_cart' %}'" id="buyNowButton">Buy Now</button>
             </div>
 
             </form>
