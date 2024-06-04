@@ -3,8 +3,8 @@
 <article>
     <a href="#">
         <div class="pizza_card">
-            <h2>{{ appetizer.name }}</h2>
-            <p>{{ appetizer.description }}</p>
+            <h2 class="cardname">{{ appetizer.name }}</h2>
+            <p class="carddescription">{{ appetizer.description }}</p>
             <ul class="prices">
                 <li><a class="purchase-link" data-type="Appetizer" data-id="{{ appetizer.id }}" data-name="{{ appetizer.name }}" data-price="{{ appetizer.price }}"  href=""><b>price:</b> ${{ appetizer.price}}</a></li>
             </ul>

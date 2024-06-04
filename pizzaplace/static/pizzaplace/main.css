@@ -13,6 +13,7 @@
     display: grid;
     /*background-color: antiquewhite;*/
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-row: repeat(auto-fill, minmax(200px, 1fr));
      grid-auto-flow: dense;
     justify-content: center;
     align-items: center;
@@ -36,6 +37,10 @@
     border: 2px solid var(--dark);
     box-shadow: 5px 5px 0px 2px rgba(14, 17, 14, 0.63);
 }
+.pizza_card:hover{
+    box-shadow:5px 5px 0px 2px rgba(116, 187, 89, 0.86);
+}
+
 .prices{
     display: flex;
     gap:1rem;
@@ -53,9 +58,7 @@ li{
     transition: transform 0.3s;
 }
 
-.pizza_card:hover{
-    box-shadow:5px 5px 0px 2px rgba(116, 187, 89, 0.86);
-}
+
 a li:hover{
        transform: scale(1.1);
     transition-duration: .3s;
@@ -182,6 +185,19 @@ dialog::backdrop{
     white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis;
+    transition: all 4s linear;
+}
+
+.SelectPrices{
+    margin:0px;
+    padding: 0px;
+}
+
+.carddescription:hover{
+
+    white-space: normal;
+    overflow: visible;
+
 }
 
 .item-name{

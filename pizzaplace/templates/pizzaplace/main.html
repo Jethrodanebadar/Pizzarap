@@ -62,7 +62,11 @@
             <input type="hidden" id="form-item-type">
             <input type="hidden" id="form-item-price">
             <div class="buttons-form">
+                {% if user.is_authenticated %}
                 <button class="purchasebtn" type="button" id="addToCartButton">Add to Cart</button>
+                {% else %}
+                <button class="purchasebtn" type="button" id="addToCartButton" onclick="window.location.href='{% url 'login' %}'">Add to Cart</button>
+                {% endif %}
         <button class="purchasebtn" type="button" onclick="window.location.href='{% url 'empty_cart' %}'" id="buyNowButton">Buy Now</button>
             </div>
 
